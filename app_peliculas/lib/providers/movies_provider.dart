@@ -1,6 +1,4 @@
 
-
-
 import 'dart:async';
 import 'dart:convert';
 
@@ -125,7 +123,7 @@ class MoviesProvider extends ChangeNotifier{
      });
 
      Future.delayed(Duration(milliseconds: 301)).then((_) => timer.cancel());
-
+     
   }
 
 }

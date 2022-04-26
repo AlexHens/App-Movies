@@ -7,6 +7,8 @@ import 'package:app_peliculas/models/models.dart';
 
 class MovieSearchDelegate extends SearchDelegate{
 
+  List<Movie> moviesResult = [];
+
   @override
   // TODO: implement searchFieldLabel
   String? get searchFieldLabel => 'Buscar película';
@@ -38,7 +40,17 @@ class MovieSearchDelegate extends SearchDelegate{
   @override
   Widget buildResults(BuildContext context) {
     // TODO: implement buildResults
-    return  Text('buildResults');
+    if(query.isEmpty){
+      return _emptyContainer();
+    }
+
+    final moviesProvider = Provider.of<MoviesProvider>(context, listen: false);
+
+    return ListView.builder(
+          itemCount: moviesResult.length,
+          itemBuilder: (_, int index) => _MovieItem(moviesResult[index])
+    );
+    
   }
 
   Widget _emptyContainer(){
@@ -67,6 +79,7 @@ class MovieSearchDelegate extends SearchDelegate{
         if(!snapshot.hasData) return _emptyContainer();
 
         final movies = snapshot.data!;
+        moviesResult = movies;
 
         return ListView.builder(
           itemCount: movies.length,
